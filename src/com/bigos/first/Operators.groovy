@@ -91,6 +91,11 @@ class Operators {
         def fargs = [4, 5, 6]
         assert f1(*fargs) == 26
         assert f1(*[4], 5, 6) == 26
+        /*
+        static int f1(int x, int y, int z) {
+           x*y+z
+        }
+        */
         // spread list elements
         def middle = [4, 5]
         def outside = [1, 2, 3, *middle, 6]

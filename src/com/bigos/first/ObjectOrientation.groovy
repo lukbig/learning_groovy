@@ -52,8 +52,64 @@ class ObjectOrientation {
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Methods>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         println "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Methods>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    }
+        // metody w groovym mogą być zdefiniowane z return type lub byc bez typu (def keyword). Metody mogą otrzymać
+        // nieograniczoną liczbę argumentów, które nie muszą mięć wprost zadeklarowanego typu. Defaultowym visibility
+        // modifierem jest public tudziez nie musi być przed deklaracją metody. Metody w groovym zawszę zwracają jakąś
+        // wartość dlatego jesli nie ma return to ostatnia wykonana linia zostanie zwrócona.
+        /*
+            def m1(String param1) {'$param1 is passed.'}
+            static String m2(param2) {'$param2 passed.'}
+         */
+        // tak jak w konstruktorach metody mogą być wołane z named parameters
+        // metody mogą mieć defaultowe parametry
+        assert foo('John').p2 == 1
+        // static def foo(String p1, Integer p2 = 1) {['p1': p1, 'p2': p2]}
 
+        //varargs: mogą być definiowane poprzez (...) lub jako tablica([])
+        assert m3("a", "b", "c") == 3
+        assert m4(1, 2) == 2
+        /*
+        static def m3(String... args) {args.length}
+        static def m4(Object[] args) {args.length}
+        */
+
+        // varargs vs method overloading
+        assert m5() == 1
+        assert m5(1) == 2
+        assert m5(1, 2) == 1
+        /*
+        static def m5(Object... args) {1}
+        static def m5(Object o) {2}
+        */
+
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Pseudo properties>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        println "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Pseudo properties>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        // mozna uzywac zdefiniowanych getterow i setterow
+        def pp = new PseudoProperties()
+        pp.name = "Jack"
+        assert pp.age == 42
+        pp.sth = true
+        /*
+        class PseudoProperties {
+            // pseudo property name
+            void setName(String name) {}
+            String getName() {}
+
+            //pseudo read-only property age
+            int getAge() { 42 }
+
+            //pseudo write-only property
+            void setSth(boolean sth) {}
+        }
+        */
+        // accessing properties
+        assert pp.properties.keySet().contains("name")
+    }
+    static def foo(String p1, Integer p2 = 1) {['p1': p1, 'p2': p2]}
+    static def m3(String... args) {args.length}
+    static def m4(Object[] args) {args.length}
+    static def m5(Object... args) {1}
+    static def m5(Object o) {2}
 }
 
 @PackageScope
@@ -71,4 +127,17 @@ class Person1 {
 class Person2 {
     String name
     int age
+}
+
+@PackageScope
+class PseudoProperties {
+    // pseudo property name
+    void setName(String name) {}
+    String getName() {}
+
+    //pseudo read-only property age
+    int getAge() { 42 }
+
+    //pseudo write-only property
+    void setSth(boolean sth) {}
 }

@@ -8,6 +8,7 @@ class IdentifiersStringsCollections {
         * pewne "identifiers" zawierają niedozwolone znaki, które są zakazane w javie ale w groovy są dozwolone w nawiasie
         * */
         def map = [:]
+        assert map instanceof LinkedHashMap
 
         map."an identifier with a space and double quotes" = "ALLOWED"
         map.'with-dash-signs-and-single-quotes' = "ALLOWED"
