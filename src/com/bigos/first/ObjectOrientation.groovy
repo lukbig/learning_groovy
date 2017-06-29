@@ -104,6 +104,19 @@ class ObjectOrientation {
         */
         // accessing properties
         assert pp.properties.keySet().contains("name")
+
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Mixins>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        println "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Mixins>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        /*
+            class MA {String methodFromMA() {'A'}}
+            class MB {String methodFromMB() {'B'}}
+         */
+        MA.metaClass.mixin MB
+        def o = new MA()
+        assert o.methodFromMA() == 'A'
+        assert o.methodFromMB() == 'B'
+        assert o instanceof MA
+        assert !(o instanceof MB)
     }
     static def foo(String p1, Integer p2 = 1) {['p1': p1, 'p2': p2]}
     static def m3(String... args) {args.length}
@@ -141,3 +154,6 @@ class PseudoProperties {
     //pseudo write-only property
     void setSth(boolean sth) {}
 }
+
+class MA {String methodFromMA() {'A'}}
+class MB {String methodFromMB() {'B'}}
