@@ -34,7 +34,7 @@ class Traits {
 
     // trait wspiera dynamiczny kod czyli w ciele trait moze byc metoda, która dopiero zostanie zaimplementowana
     // w super klasie
-    /* trait SwimmingAbility {
+ trait SwimmingAbility {
         ...
            String speak() {
                 blow()
@@ -48,7 +48,8 @@ class Traits {
        }
        /////////////////////
        assert f2.speak() == "Blow!"
-    */
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Dynamic part 2 (methods and properties)
